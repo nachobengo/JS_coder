@@ -21,9 +21,10 @@ const libros = [
 
 const catalogoLibros = new CatalogoLibros(libros);
 
-const resultadoLibros = new CatalogoLibros(libros);
 
 console.log("LIBROS ORIGINAL", catalogoLibros.libros)
+
+cargarPreferencias();
 
 listarLibros();
 function listarLibros() {
@@ -33,13 +34,18 @@ function listarLibros() {
 
         const divLibro = document.createElement("div")
         divLibro.innerHTML=`<div class="item_list">
-                                <div><img src=https://via.placeholder.com/550x800 class="img-fluid"></div>
                                 <h3>${libro.titulo}</h3>
                                 <div class='precio'> (${libro.autor})</div>
                                 <div>$ ${libro.precio}</div>
-                                <a onclick="agregrar()" class="add">AGREGAR</a>
+                                <a id="${libro.id}" class="btn_principal">AGREGAR</a>
                             </div>`
         nodoPrincipal.appendChild(divLibro);
+
+            divLibro.addEventListener("click", () => {
+            alert("agregado con éxito");
+            
+        })
+
     })
 }
 
@@ -47,48 +53,53 @@ function listarLibros() {
 
 
 function mostrarMenu() {
-    let opcion = "";
-    while (opcion !== "K") {
+    // CREACION D BOTONES
+    const buscaTituloBtn = document.createElement("button")
+        buscaTituloBtn.setAttribute("type", "submit");
+        buscaTituloBtn.setAttribute("value", "buscar");
+        buscaTituloBtn.setAttribute("id", "buscarPorTitulo");
+        buscaTituloBtn.classList.add("btn_principal");
+        buscaTituloBtn.innerText="BUSCAR POR TITULO";
 
-        opcion = prompt(`Seleccione una opcion: 
-                        A. Buscar por título
-                        B. Buscar por autor
-                        C. Buscar precio
-                        D. Orden por título. A-Z
-                        K. FIN`).toUpperCase();
+    const buscaAutorBtn = document.createElement("button")
+        buscaAutorBtn.setAttribute("type", "submit");
+        buscaAutorBtn.setAttribute("value", "buscar");
+        buscaAutorBtn.setAttribute("id", "buscarPorAutor");
+        buscaAutorBtn.classList.add("btn_principal");
+        buscaAutorBtn.innerText="BUSCAR POR AUTOR";
 
-        switch (opcion) {
-            case "A":
-                buscarTitulo();
-                break;
-            case "B":
-                buscarAutor();
-                break;
-            case "C":
-                ingresarPrecio();
-                break;
-            case "D":
-                ordenarLista();
-                break;
-            case "K":
-                alert("GRACIAS");
-                break;
-            default:
-                alert("opcion inválida")
-                break;
-        }
-    }
+    const buscaPrecioBtn = document.createElement("button")
+        buscaPrecioBtn.setAttribute("type", "submit");
+        buscaPrecioBtn.setAttribute("value", "buscar");
+        buscaPrecioBtn.setAttribute("id", "buscarPorPrecio");
+        buscaPrecioBtn.classList.add("btn_principal");
+        buscaPrecioBtn.innerText="BUSCAR POR PRECIO";
 
+
+    const busquedaPrincipal = document.getElementById("mainSearch");
+        busquedaPrincipal.innerHTML="";
+        busquedaPrincipal.appendChild(buscaTituloBtn);
+        busquedaPrincipal.appendChild(buscaAutorBtn);
+        busquedaPrincipal.appendChild(buscaPrecioBtn);
+
+    
+        
+    const btnBusquedaPorTitulo = document.getElementById("buscarPorTitulo");
+    btnBusquedaPorTitulo.addEventListener("click", () => {
+        buscarTitulo();
+    })
+
+
+    const btnBusquedaPorAutor = document.getElementById("buscarPorAutor");
+    btnBusquedaPorAutor.addEventListener("click", () => {
+        buscarAutor();
+    })
+
+    const btnBusquedaPorPrecio = document.getElementById("buscarPorPrecio");
+    btnBusquedaPorPrecio.addEventListener("click", () => {
+        ingresarPrecio();
+    })
 }
-function buscarTitulo() {
-    let nombreABuscar = prompt("Ingrese el título que quiere buscar");
-    catalogoLibros.buscarT(nombreABuscar);
-}
-function buscarAutor() {
-    let autorABuscar = prompt("Ingrese el autor que quiere buscar");
-    catalogoLibros.buscarA(autorABuscar);
-}
-
 
 function ordenarLista(){
     catalogoLibros.ordenarLista();
@@ -97,6 +108,12 @@ function ordenarPrecio(){
     catalogoLibros.ordenarPrecio();
 }
 
+
+function agregrarAlCarro() {
+    const btnCart = document.getElementById("id");
+        btnCart.classList.add("disabled") 
+        alert("aca"); 
+}
 
 // let searchTitulo = document.getElementById("titulo");
 

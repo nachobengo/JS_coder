@@ -8,25 +8,43 @@ class CatalogoLibros{
     }
 
 
-    buscarT(nombreABuscar) {
-        let esta = this.libros.some((libro) =>
-            libro.titulo.includes(nombreABuscar)
-        )
-        if (esta) {
-            // alert("LO ENCONTRE")
-            // let filtrado = this.libros.filter((libro) => libro.titulo.includes(nombreABuscar))
-            // console.log("ESTO ENCONTRÉ", filtrado);
-            catalogoLibros.listarResultadoTitulo();
+    buscarTituloIngresado(tituloABuscar) {
+        let resultadoFiltrado = this.libros.filter((libro) =>
+            libro.titulo.includes(tituloABuscar))
+
+            if(resultadoFiltrado.length > 0){
+                catalogoLibros.listarResultados(resultadoFiltrado);
+            }
+            else {
+                alert("no encontré")
+            }
         }
-        else {
-            alert("NO LO ENCONTRÉ")
+    buscarAutorIngresado(autorABuscar)  {
+        let resultadoFiltrado = this.libros.filter((libro) =>
+            libro.autor.includes(autorABuscar))
+
+            if(resultadoFiltrado.length > 0){
+                catalogoLibros.listarResultados(resultadoFiltrado);
+            }
+            else {
+                alert("no encontré")
+            }
+        }
+
+    buscarPrecioIngresado(precioABuscar) {
+        let precioFiltrado = this.libros.filter((libro) => libro.precio <= (precioABuscar))
+
+        if (precioFiltrado.length > 0){
+            catalogoLibros.listarResultados(precioFiltrado);
+        } else {
+            listarLibros();
         }
     }
 
-    listarResultadoTitulo() {
-        const nodoResultado = document.getElementById("result_list")
+    listarResultados(array) {
+        const nodoResultado = document.getElementById("main_list")
         nodoResultado.innerHTML="";
-        catalogoLibros.libros.forEach((libro)=>{
+        array.forEach((libro)=>{
     
             const divResultado = document.createElement("div")
             divResultado.innerHTML=`<div class="item_list">
@@ -38,24 +56,6 @@ class CatalogoLibros{
                                 </div>`
             nodoResultado.appendChild(divResultado);
         })
-    }
-
-    buscarA(autorABuscar) {
-        let esta = this.libros.some((libro) =>
-            libro.autor.includes(autorABuscar)
-        )
-        if (esta) {
-            alert("LO ENCONTRE")
-
-            let filtrado = this.libros.filter((libro) =>
-                    libro.autor.includes(autorABuscar)
-            )
-
-            console.log("ESTO ENCONTRÉ", filtrado);
-        }
-        else {
-            alert("NO LO ENCONTRÉ")
-        }
     }
 
 

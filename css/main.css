@@ -3,6 +3,9 @@
         height: 100%;
         font-family: sans-serif !important;
     }
+
+    .btn_principal,
+    button.btn_principal,
     a.btn_principal,
     a.add{
         display: inline-block;
@@ -27,6 +30,11 @@
 		-ms-transition: all 0.3s ease-in-out;
 		transition: all 0.3s ease-in-out;
     }
+
+    .btn_principal:hover,
+    .btn_principal:focus,
+    button.btn_principal:hover,
+    button.btn_principal:focus,
     a.btn_principal:hover,
     a.btn_principal:focus,
     a.add:hover,
@@ -37,16 +45,36 @@
 
     #main_list{
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
+        grid-auto-flow: dense;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+        grid-template-rows: minmax(100px, auto);
+        gap: 1em;
     }
     .item_list{
         padding: 5px;
         border-radius: 5px;
         border: 1px solid #ccc;
         background: #fff;
-        box-shadow: ;
+        box-shadow: none;
+        cursor: unset;
+        pointer-events: none;
     }
+    .item_list a{
+        cursor: pointer;
+        pointer-events:initial;
+    }
+
+    #mainSearch,
+    #loguinBtn,
+    #loginForm,
+    #subSearch{
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        flex: auto;
+        align-items: center;
+    }
+
 
 
 }
